@@ -22,3 +22,18 @@ export const getTextureMaterial = (color) => {
   });
   return material;
 };
+
+export const selectSwatch = (event, theModel, colors, activeOption) => {
+  let color = colors[parseInt(event.target.dataset.key)];
+  let new_mtl;
+
+  if (color.texture) {
+    new_mtl = getTextureMaterial(color);
+  } else {
+    new_mtl = new THREE.MeshPhongMaterial({
+      color: parseInt("0x" + color.color),
+      shininess: color.shininess ? color.shininess : 10,
+    });
+  }
+  setMaterial(theModel, new_mtl, activeOption);
+};
